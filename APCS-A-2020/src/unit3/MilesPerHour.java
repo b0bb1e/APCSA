@@ -7,37 +7,45 @@ package unit3;
 //Class -
 //Lab  -
 
+// used for rounding
 import static java.lang.Math.*;
 
 public class MilesPerHour
 {
+	// attributes for situation & speed
 	private int distance, hours, minutes;
 	private double mph;
 
+	// default constructor: no movement over no time
 	public MilesPerHour()
 	{
 		setNums(0, 0, 0);
 	}
 
+	// constructor: set situation attributes
 	public MilesPerHour(int dist, int hrs, int mins)
 	{
 		setNums(dist, hrs, mins);
 	}
 
+	// method to set situation attributes
 	public void setNums(int dist, int hrs, int mins)
 	{
 		distance = dist;
 		hours = hrs;
 		minutes = mins;
+		// recalculate the speed
 		calcMPH();
 	}
 
+	// method to calculate the speed given the situation
 	public void calcMPH()
 	{
 		mph = distance / (hours + (double) minutes / 60);
 	}
 
 
+	// method to print out the attributes with context
 	public String toString()
 	{
 		String milesWord = "miles";
