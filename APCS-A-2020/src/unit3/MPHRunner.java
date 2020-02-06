@@ -18,9 +18,7 @@ public class MPHRunner
 		// declare objects & variables
 		Scanner keyboard = new Scanner(System.in);
 		MilesPerHour mph = new MilesPerHour();
-		int dist;
-		int hrs;
-		int mins;
+		int dist, hrs, mins;
 		
 		// loop for as many times as sample data sets
 		for (byte i = 0; i < 4; i++) {

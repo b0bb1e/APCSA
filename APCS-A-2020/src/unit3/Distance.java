@@ -16,10 +16,10 @@ public class Distance
 	private int xOne, yOne, xTwo, yTwo;
 	private double distance;
 
-	// default constructor: both points are at (0, 0)
+	// default constructor: first sample data set
 	public Distance()
 	{
-		setCoordinates(0, 0, 0, 0);
+		setCoordinates(1, 1, 2, 1);
 	}
 
 	// constructor: set points' coordinates
@@ -40,9 +40,9 @@ public class Distance
 	}
 
 	// method to calculate the distance between two points
-	public void calcDistance()
+	private void calcDistance()
 	{
-		distance = Math.sqrt(0.0 + Math.pow(xOne - xTwo, 2) + Math.pow(yOne - yTwo, 2));
+		distance = Math.sqrt(Math.pow(xOne - xTwo, 2) + Math.pow(yOne - yTwo, 2));
 	}
 	
 	// method to print out the important attribute with context

@@ -16,10 +16,10 @@ public class MilesPerHour
 	private int distance, hours, minutes;
 	private double mph;
 
-	// default constructor: no movement over no time
+	// default constructor: first sample data set
 	public MilesPerHour()
 	{
-		setNums(0, 0, 0);
+		setNums(45, 0, 32);
 	}
 
 	// constructor: set situation attributes
@@ -31,7 +31,9 @@ public class MilesPerHour
 	// method to set situation attributes
 	public void setNums(int dist, int hrs, int mins)
 	{
-		distance = dist;
+		// if no time has passed, force no movement to have happened either
+		if (hrs == 0 && mins == 0) distance = 0;
+		else distance = dist;
 		hours = hrs;
 		minutes = mins;
 		// recalculate the speed
@@ -39,9 +41,10 @@ public class MilesPerHour
 	}
 
 	// method to calculate the speed given the situation
-	public void calcMPH()
+	private void calcMPH()
 	{
-		mph = distance / (hours + (double) minutes / 60);
+		if (hours == 0 && minutes == 0) mph = 0;
+		else mph = distance / (hours + (double) minutes / 60);
 	}
 
 

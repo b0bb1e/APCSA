@@ -18,10 +18,7 @@ public class DistanceRunner
 		// declare objects & variables
 		Scanner keyboard = new Scanner(System.in);
 		Distance dist = new Distance();
-		int x1;
-		int y1;
-		int x2;
-		int y2;
+		int x1, y1, x2, y2;
 		
 		// loop for as many times as sample data sets
 		for (byte i = 0; i < 3; i++) {
