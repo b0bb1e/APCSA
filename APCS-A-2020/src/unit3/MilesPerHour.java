@@ -34,8 +34,10 @@ public class MilesPerHour
 		// if no time has passed, force no movement to have happened either
 		if (hrs == 0 && mins == 0) distance = 0;
 		else distance = dist;
+		
 		hours = hrs;
 		minutes = mins;
+		
 		// recalculate the speed
 		calcMPH();
 	}
@@ -51,12 +53,16 @@ public class MilesPerHour
 	// method to print out the attributes with context
 	public String toString()
 	{
+		// automatically choose plural words
 		String milesWord = "miles";
 		String hoursWord = "hours";
 		String minutesWord = "minutes";
+		
+		// check if plurality is needed
 		if (distance == 1) milesWord = "mile";
 		if (hours == 1) hoursWord = "hour";
 		if (minutes == 1) minutesWord = "minute";
+		
 		return distance + " " + milesWord + " in " + hours + " " + hoursWord + " and " + minutes + " " + minutesWord + " = " + Math.round(mph) + " MPH.";
 	}
 }

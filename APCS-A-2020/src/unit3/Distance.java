@@ -35,6 +35,7 @@ public class Distance
 		yOne = y1;
 		xTwo = x2;
 		yTwo = y2;
+		
 		// recalculate the distance between points
 		calcDistance();
 	}
