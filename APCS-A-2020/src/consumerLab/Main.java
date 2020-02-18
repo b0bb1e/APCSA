@@ -5,6 +5,6 @@ import java.util.Scanner;
 
 class Main {
 	public static void main(String[] args) {
-		System.out.println(Review.totalSentiment("src/consumerLab/26WestReview.txt"));
+		System.out.println(Review.fakeReview("src/consumerLab/simpleReview.txt", false, true));
 	}
 }

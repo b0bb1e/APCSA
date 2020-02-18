@@ -24,7 +24,6 @@ public class Review {
 			while (input.hasNextLine()) {
 				String[] temp = input.nextLine().split(",");
 				sentiment.put(temp[0], Double.parseDouble(temp[1]));
-				// System.out.println("added "+ temp[0]+", "+temp[1]);
 			}
 			input.close();
 		}
@@ -38,7 +37,6 @@ public class Review {
 			Scanner input = new Scanner(new File("src/consumerLab/positiveAdjectives.txt"));
 			while (input.hasNextLine()) {
 				String temp = input.nextLine().trim();
-				System.out.println(temp);
 				posAdjectives.add(temp);
 			}
 			input.close();
@@ -151,18 +149,26 @@ public class Review {
 		double sentimentTotal = 0;
 		// loop through the file contents
 		int nextSpace = review.indexOf(SPACE);
-		int check;
+		int nextSlash = review.indexOf('/');
+		int end, start;
 		while (nextSpace > -1) {
 			// find each word
-			check = nextSpace - 1;
-			while (review.charAt(check) < 48) check--;
+			end = nextSpace - 1;
+			start = 0;
+			while (end >= 0 && (review.charAt(end) < 48 || (review.charAt(end) < 65 && review.charAt(end) > 57))) end--;
+			while (start < end + 1 && (review.charAt(start) < 48 || (review.charAt(start) < 65 && review.charAt(start) > 57))) start++;
 			// add in its sentimentVal
-			sentimentTotal += sentimentVal(review.substring(0, check + 1));
-			sentimentTotal = (double) Math.round(sentimentTotal * 100) / 100;
-			System.out.println(review.substring(0, check + 1) + " score of " + sentimentVal(review.substring(0, check + 1)) + " for running score of " + sentimentTotal);
+			if (end + 1 > start) {
+				sentimentTotal += sentimentVal(review.substring(start, end + 1));
+				sentimentTotal = (double) Math.round(sentimentTotal * 100) / 100;
+			}
 			// set the file contents to start after this word
 			review = review.substring(nextSpace + 1);
 			nextSpace = review.indexOf(SPACE);
+			nextSlash = review.indexOf('/');
+			if (nextSlash != -1 && nextSlash < nextSpace) {
+				nextSpace = nextSlash;
+			}
 		}
 		return sentimentTotal;
 	}
@@ -173,12 +179,37 @@ public class Review {
 	 */
 	public static int starRating(String filename) {
 		// call the totalSentiment method with the fileName
-
+		double sentiment = totalSentiment(filename);
 		// determine number of stars between 0 and 4 based on totalSentiment value
 		int stars;
 		// write if statements here
-		stars = 0;
+		if (sentiment > 20) stars = 4;
+		else if (sentiment > 10) stars = 3;
+		else if (sentiment > 0) stars = 2;
+		else stars = 1;
 		// return number of stars
 		return stars;
+	}
+	
+	public static String fakeReview(String filename, boolean positive, boolean extreme) {
+		String review = textToString(filename);
+		int nextAdj = review.indexOf('*');
+		int spaceAfter;
+		String adj = "";
+		while (nextAdj > -1) {
+			spaceAfter = review.indexOf(SPACE, nextAdj);
+			adj = review.substring(nextAdj + 1, spaceAfter);
+			if (positive) {
+				if (sentimentVal(adj) <= 0) adj = randomPositiveAdj().toLowerCase();
+				while (extreme && sentimentVal(adj) < 1) adj = randomPositiveAdj().toLowerCase();
+			}
+			else {
+				if (sentimentVal(adj) >= 0) adj = randomPositiveAdj().toLowerCase();
+				while (extreme && sentimentVal(adj) > -1) adj = randomPositiveAdj().toLowerCase();
+			}
+			review = review.substring(0, nextAdj) + adj + review.substring(spaceAfter);
+			nextAdj = review.indexOf('*');
+		}
+		return review;
 	}
 }
