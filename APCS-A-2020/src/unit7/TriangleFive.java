@@ -28,18 +28,39 @@ public class TriangleFive
 		amount = amt;
 	}
 
+	// method to make the char triangle
 	public String toString()
 	{
-		String output = "";
-		for (int row = amount; row > 0; row--) {
-			for (int block = row; block > 0; block--) {
+		// initialize triangle variable
+		String triangle = "";
+		
+		char let = 65;
+		
+		// make as many rows as "amount"
+		for (int row = 0; row < amount; row++) {
+			// count down from total number of rows to row number
+			// MATH EXPLANATION: beginning blocks are larger, and smaller blocks are not reached in later rows
+			for (int block = amount; block > row; block--) {
+				// count down from block number to 0
+				// MATH EXPLANATION: block# is number of chars required
 				for (int chars = block; chars > 0; chars--) {
-					output += (char) (letter + amount - block) + "";
+					// add proper char in
+					// MATH EXPLANATION: total amount of blocks - current block (beginning larger) gives the shift from the given char
+					let = (char) (letter + amount - block);
+					// loop around from Z-A, so mod from Z
+					if (let > 90) let = (char) ((let % 90) + 64);
+					triangle += let + "";
 				}
-				output += " ";
+				
+				// space after each block
+				triangle += " ";
 			}
-			output += "\n";
+			
+			// newline after each line
+			triangle += "\n";
 		}
-		return output;
+		
+		// return the triangle
+		return triangle;
 	}
 }
