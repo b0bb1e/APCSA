@@ -35,7 +35,7 @@ public class Shuffler {
 			System.out.println();
 		}
 		System.out.println();
-/*
+
 		System.out.println("Results of " + SHUFFLE_COUNT + " consecutive efficient selection shuffles:");
 		int[] values2 = new int[VALUE_COUNT];
 		for (int i = 0; i < values2.length; i++) {
@@ -49,7 +49,7 @@ public class Shuffler {
 			}
 			System.out.println();
 		}
-		System.out.println();*/
+		System.out.println();
 	}
 
 
@@ -62,7 +62,7 @@ public class Shuffler {
 	public static void perfectShuffle(int[] values) {
 		int[] shuffled = new int[values.length];
 		int spot = 0;
-		for (int i = 0, n = values.length / 2 - 1; i < n; i++) {
+		for (int i = 0, n = values.length / 2; i < n; i++) {
 			shuffled[i] = values[spot];
 			spot += 2;
 		}
@@ -71,6 +71,7 @@ public class Shuffler {
 			shuffled[i] = values[spot];
 			spot += 2;
 		}
+		for (int i = 0, n = shuffled.length; i < n; i++) values[i] = shuffled[i];
 	}
 
 	/**
@@ -85,6 +86,12 @@ public class Shuffler {
 	 * @param values is an array of integers simulating cards to be shuffled.
 	 */
 	public static void selectionShuffle(int[] values) {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 3 *** */
+		int temp, spot;
+		for (int i = values.length - 1; i >= 0; i--) {
+			spot = (int) (Math.random() * (i + 1));
+			temp = values[spot];
+			values[spot] = values[i];
+			values[i] = temp;
+		}
 	}
 }

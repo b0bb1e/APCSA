@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-//make a Deck class
 public class Deck {
 	public static final int NUMCARDS = 52;
 	public static String[] SUITS = "CLUBS HEARTS DIAMONDS SPADES".split(" ");
@@ -16,11 +15,12 @@ public class Deck {
 	private List<Card> cards;
 	private int top;
 
-   //make a Deck constructor
+	// default constructor: regular deck
 	public Deck() {
 		this(Card.FACES, SUITS, new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13});
 	}
 	
+	// constructor: get new cards
 	public Deck(String[] ranks, String[] suits, int[] values) {
 		cards = new ArrayList<Card>();
 		top = values.length * suits.length - 1;

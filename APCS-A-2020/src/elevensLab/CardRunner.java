@@ -3,13 +3,14 @@ package elevensLab;
 //www.apluscompsci.com
 //Name -
 
+// import for printing outputs
 import static java.lang.System.*;
-import java.awt.Color;
 
 public class CardRunner
 {
-	public static void main( String args[] )
+	public static void main(String args[])
 	{
+		// make various cards to test methods
 		Card one = new Card("SPADES", 9);
 		out.println(one.getSuit());
 		out.println(one.getFace());
