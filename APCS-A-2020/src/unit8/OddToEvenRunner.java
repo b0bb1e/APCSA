@@ -4,6 +4,7 @@ package unit8;
 //Name - Faith Okamoto
 //Date - 2/21
 
+// import for printing outputs
 import java.lang.System.*;
 
 public class OddToEvenRunner
