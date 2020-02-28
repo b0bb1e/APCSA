@@ -1,11 +1,10 @@
 package elevensLab;
 //(c) A+ Computer Science
 //www.apluscompsci.com
-//Name -
+//Name - Faith Okamoto
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class Deck {
@@ -45,5 +44,12 @@ public class Deck {
    public void shuffle() {
 	   Collections.shuffle(cards);
 	   top = cards.size() - 1;
+   }
+   
+   public String toString() {
+	   String ret = "  ";
+	   for (int i = 0; i < top; i++) ret += cards.get(i).getSuit() + " " + cards.get(i).getRank() + "\n  ";
+	   if (isEmpty()) ret += "no cards left";
+	   return ret;
    }
 }
