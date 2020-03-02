@@ -47,7 +47,7 @@ public class Card
 	public int getPointValue() {return pointValue;}
 	
 	public boolean matches(Card check) {
-		return check.getSuit() == suit && check.getFace() == face && check.getRank() == rank && check.getPointValue() == pointValue;
+		return check.getSuit().equals(suit) && check.getFace() == face && check.getRank().equals(rank) && check.getPointValue() == pointValue;
 	}
 
 	public String toString() {
