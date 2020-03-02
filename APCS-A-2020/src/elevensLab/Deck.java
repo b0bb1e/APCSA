@@ -42,9 +42,11 @@ public class Deck {
 	}
    
    public void shuffle() {
+	   resetTop();
 	   Collections.shuffle(cards);
-	   top = cards.size() - 1;
    }
+   
+   public void resetTop() {top = cards.size() - 1;}
    
    public String toString() {
 	   String ret = "  ";
