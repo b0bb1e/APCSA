@@ -98,19 +98,27 @@ class Rational implements Comparable<Rational>
 	// check if an object is equal to this
 	public boolean equals(Object compare)
 	{
+		// check numerator & denominator, cast to Rational
 		return numer == ((Rational) compare).getNumerator()
 				&& denom == ((Rational) compare).getDenominator();
 	}
 
+	// check if another Rational is bigger/smaller than this
 	public int compareTo(Rational compare)
 	{
+		// check for equality first
 		if (this.equals(compare)) return 0;
+		
+		// change both numerators for lcd purposes
 		int myNumer = numer * compare.getDenominator();
 		int compareNumer = compare.getNumerator() * denom;
+		
+		// compare the numerators
 		if (myNumer > compareNumer) return 1;
 		return -1;
 	}
 	
+	// print out values as a fraction
 	public String toString() {
 		return numer + "/" + denom;
 	}
