@@ -88,19 +88,19 @@ public class ToyStore
   		// loop over all unsorted elements
   		for (int i = 1; i < toyList.size(); i++) {
   			// save the current spot being checked
-  			check = i;
+  			check = i - 1;
   			// while check is the beginning of toyList
   			// and the left element has larger count
-  			while (check > 0 &&
-  					toyList.get(check).getCount() < 
-  					toyList.get(check - 1).getCount()) {
+  			while (check >= 0 &&
+  					toyList.get(i).getCount() < 
+  					toyList.get(check).getCount()) {
   				// move checking index over
   				check--;
   			}
   			
   			// move this element to its sorted spot
   			temp = toyList.remove(i);
-  			toyList.add(check, temp);
+  			toyList.add(check + 1, temp);
   		}
   	}  
   	
