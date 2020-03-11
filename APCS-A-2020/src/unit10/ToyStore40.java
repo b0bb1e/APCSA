@@ -5,13 +5,13 @@ package unit10;
 
 import java.util.ArrayList;
 
-public class ToyStore
+public class ToyStore40
 {
 	// store the toys in the store
 	private ArrayList<Toy> toyList;
 
 	// constructor initializes the toyList
-	public ToyStore()
+	public ToyStore40()
 	{
 		toyList = new ArrayList<Toy>();
 	}
@@ -54,6 +54,11 @@ public class ToyStore
   		return null;
   	}
   	
+  	// give my name
+  	public String myName() {
+  		return "Faith Okamoto";
+  	}
+  	
   	// find the name of the most frequent toy
   	public String getMostFrequentToy()
   	{
@@ -74,8 +79,7 @@ public class ToyStore
   		}
   		
   		// return most frequent toy's name
-  		// in the proper format
-  		return "max == " + mostName;
+  		return mostName;
   	}  
   
   	// insertion sort of the toyList by count 

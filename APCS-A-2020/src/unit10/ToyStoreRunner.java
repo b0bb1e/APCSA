@@ -7,14 +7,10 @@ public class ToyStoreRunner
 {
 	public static void main(String args[])
 	{
-		// create a ToyStore and run some methods to test it
-		ToyStore store = new ToyStore();
-		System.out.println(store); 
-		
-		String toys = "sorry bat sorry sorry sorry train train teddy teddy ball ball";
-		store.loadToys(toys);
-		System.out.println(store);
-		
-		System.out.println(store.getMostFrequentToy());
+		ToyStore40 sto = new ToyStore40();
+		System.out.println( sto );
+		sto.loadToys("sorry bat sorry sorry sorry train train teddy teddy ball ball" );
+		System.out.println( sto );	
+		System.out.println( "max == " + sto.getMostFrequentToy() );
 	}
 }
