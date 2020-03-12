@@ -28,6 +28,10 @@ public class WeatherStation {
       return name;
    }
    
+   public double getLong() {
+	   return lng;
+   }
+   
    /* Determine if this weather station is located in the given state */
    public boolean isLocatedInState(String st) {
       return this.state.equals(st);
