@@ -11,8 +11,8 @@ public class EmergencyManagerRunner {
 	public static void main(String[] args) {
 		// get emergency manager data
 		DataSource ds = DataSource.connect("https://data.ny.gov/api/views/jwkb-x5v6/rows.xml").load();
-		ArrayList<EmergencyManager> managers = ds.fetchList(EmergencyManager.class, "row/row/address",
-				"row/row/zip_code");
+		ArrayList<EmergencyManager> managers = ds.fetchList(EmergencyManager.class,
+												"row/row/address", "row/row/zip_code");
 
 		// initialize count map
 		HashMap<Integer, Integer> zipCodeCount = new HashMap<Integer, Integer>();
@@ -21,7 +21,6 @@ public class EmergencyManagerRunner {
 		int zipCode, count;
 		// tracks information about max zip codes
 		ArrayList<Integer> maxCodes = new ArrayList<Integer>();
-		ArrayList<String> maxAddresses = new ArrayList<String>();
 		int maxCount = 0;
 		
 		// for each manager
@@ -41,28 +40,46 @@ public class EmergencyManagerRunner {
 			if (count > maxCount) {
 				// reset maxCount
 				maxCount = count;
-				// clear arraylists and add just this em's info
+				// clear maxCodes and add this em's info
 				maxCodes.clear();
-				maxAddresses.clear();
 				maxCodes.add(zipCode);
-				maxAddresses.add(em.getAddress());
 			}
-			// if this count is equal to the highest
-			else if (count == maxCount) {
-				// add to arraylists
-				maxCodes.add(zipCode);
-				maxAddresses.add(em.getAddress());
+			// if this count is equal to the highest so far, add zip code to maxCodes
+			else if (count == maxCount) maxCodes.add(zipCode);
+		}
+		
+		// number of managers in max zip codes is number of max zip codes * number of offices
+		EmergencyManager[] maxManagers = new EmergencyManager[maxCodes.size() * maxCount];
+		
+		// adding to index 0
+		int index = 0;
+		// loop over all managers again
+		for (EmergencyManager em : managers) {
+			// if this manager's zip code is in the list of max zip codes
+			if (maxCodes.indexOf(em.getZipCode()) != -1) {
+				// add this manager to the array
+				maxManagers[index] = em;
+				// move index one forward
+				index++;
 			}
 		}
 
 		// print out information
-		System.out.println("Total Emergency Management Offices in NYS: " + managers.size());
-		System.out.println("Number of zip codes those offices are in: " + zipCodeCount.keySet().size());
-		System.out.println("The maximum number of Emergency Management Offices within a single zip code in NYS: "
-						+ maxCount);
-		System.out.println("There are number of zip code(s) with this many stations: " + maxCodes.size());
-		System.out.print("These station(s) are: ");
-		for (int i = 0; i < maxCodes.size(); i++)
-			System.out.println(maxAddresses.get(i) + " (" + maxCodes.get(i) + ") ");
+		System.out.println("Total Emergency Management Offices in NYS: "
+						+ managers.size());
+		
+		System.out.println("Number of zip codes those offices are in: "
+						+ zipCodeCount.keySet().size());
+		
+		System.out.println("The maximum number of EMOs "
+						+ "within a single zip code in NYS: " + maxCount);
+		
+		System.out.println("There are number of zip code(s) with this many offices: "
+						+ maxCodes.size());
+		
+		System.out.println("These office(s) are:");
+		
+		for (EmergencyManager em : maxManagers)
+			System.out.println(em.getAddress() + " (" + em.getZipCode() + ")");
 	}
 }
