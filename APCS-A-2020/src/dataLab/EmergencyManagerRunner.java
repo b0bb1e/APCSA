@@ -2,7 +2,7 @@ package dataLab;
 /*
  * Arrays of objects
  */
-
+ 
 import core.data.*;
 import java.util.ArrayList;
 import java.util.HashMap;
