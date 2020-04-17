@@ -3,9 +3,6 @@ package elevensLab;
 //www.apluscompsci.com
 //Name - Faith Okamoto
 
-// import for printing outputs
-import static java.lang.System.*;
-
 public class DeckRunner
 {
 	public static void main( String args[] )
