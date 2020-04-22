@@ -133,7 +133,7 @@ public class ElevensBoard extends Board {
 				&& cardAt(selectedCards.get(0)).getPointValue()
 				+ cardAt(selectedCards.get(1)).getPointValue() == 11)
 			return true;
-		// otherise it isn't
+		// otherwise it isn't
 		else return false;
 	}
 
