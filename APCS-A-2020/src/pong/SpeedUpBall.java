@@ -140,8 +140,8 @@ class SpeedUpBall extends Ball {
 	 */
 	public void setYSpeed(int yS) {
 		// if asked to set a positive speed, set 1 higher
-		if (yS >= 0) super.setXSpeed(yS + 1);
+		if (yS >= 0) super.setYSpeed(yS + 1);
 		// otherwise (asked to set a negative speed) set 1 lower
-		else super.setXSpeed(yS - 1);
+		else super.setYSpeed(yS - 1);
 	}
 }

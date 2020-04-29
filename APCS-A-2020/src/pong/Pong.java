@@ -71,7 +71,7 @@ public class Pong extends Canvas implements KeyListener, Runnable {
 	 */
 	public Pong(JFrame frame) {
 		// the ball starts in the middle of the screen
-		ball = new InvisibleBall(frame.getWidth() / 2 - 5, frame.getHeight() / 2 - 5, 10);
+		ball = new SpeedUpBall(frame.getWidth() / 2 - 5, frame.getHeight() / 2 - 5, 10);
 		// the paddles start in the middle on opposite sides
 		leftPaddle = new Paddle(10, frame.getHeight() / 2 - 50, 10, 100);
 		rightPaddle = new Paddle(frame.getWidth() - 40, frame.getHeight() / 2, 10, 100);
