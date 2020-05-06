@@ -10,7 +10,7 @@ import java.awt.event.MouseListener;
  * Represents a striped present box
  * @author faith
  */
-public class Present extends AbstractShape implements MouseListener{
+public class Present extends AbstractShape implements MouseListener {
 	/**
 	 * Constructor
 	 * <br>
