@@ -31,10 +31,11 @@ public class AlienHorde {
 	 * the y-coordinate spacing between adjacent rows of Aliens
 	 */
 	public static final int Y_SPACING = 50;
+	public static final int ALIEN_SIZE = 25;
 	/**
 	 * the chance that when moving down the screen a row of Aliens will speed up 1
 	 */
-	public static final double SPEED_UP_CHANCE = 0.4;
+	public static final double SPEED_UP_CHANCE = 0.3;
 
 	/**
 	 * Initializes the matrix of Aliens
@@ -59,9 +60,11 @@ public class AlienHorde {
 			// if this is an odd row, shift starting x forward to stagger
 			if (row % 2 == 1) x += X_SPACING / 2;
 			// loop over x-values, spaced by X_SPACING, until half the screen is gone
-			for (; x < width / 2; x += X_SPACING)
+			for (; x < width / 2; x += X_SPACING) {
 				// add an alien in this position
-				add(new Alien(x, row * Y_SPACING + 10, 25, 25, 1), row);
+				if (row != 0) add(new Alien(x, row * Y_SPACING + 10, ALIEN_SIZE, ALIEN_SIZE, 1), row);
+				else add(new BigAlien(x, row * Y_SPACING + 10, ALIEN_SIZE * 2, ALIEN_SIZE * 2, 1), row);
+			}
 			
 		}
 	}
@@ -91,6 +94,7 @@ public class AlienHorde {
 	public void moveEmAll(int width) {
 		// loop over all rows of the matrix
 		for (int row = 0; row < aliens.size(); ++row) {
+			
 			// if this row is moving left
 			if (movingLeft.get(row)) {
 				// its end-Alien is the first one
@@ -100,15 +104,12 @@ public class AlienHorde {
 				if (end.getX() - end.getSpeed() < 0) {
 					// change this row's direction
 					movingLeft.set(row, false);
-					
+					if (end.getSpeed() < 5 && Math.random() < SPEED_UP_CHANCE)
+						for (Alien alien : aliens.get(row)) alien.speedUp();
 					// loop over all Aliens in the row
 					for (Alien alien : aliens.get(row)) {
 						// move this Alien down
 						alien.move(MovingThing.DOWN);
-						// if speed < 5 and it is a random speed-up
-						if (alien.getSpeed() < 5 && Math.random() < SPEED_UP_CHANCE) 
-							// speed up this Alien
-							alien.setSpeed(alien.getSpeed() + 1);
 					}
 				}
 				// otherwise, loop over all Aliens and move them left
@@ -125,15 +126,12 @@ public class AlienHorde {
 					// change this row's direction
 					movingLeft.set(row, true);
 					
-					// loop over all Aliens in the row
-					for (Alien alien : aliens.get(row)) {
-						// move this Alien down
-						alien.move(MovingThing.DOWN);
-						// if speed < 5 and it is a random speed-up
-						if (alien.getSpeed() < 5 && Math.random() < SPEED_UP_CHANCE) 
-							// speed up this Alien
-							alien.setSpeed(alien.getSpeed() + 1);
-					}
+					// randomly speed up all Aliens
+					if (end.getSpeed() < 5 && Math.random() < SPEED_UP_CHANCE)
+						for (Alien alien : aliens.get(row)) alien.speedUp();
+					
+					// move all Aliens in the row down
+					for (Alien alien : aliens.get(row)) alien.move(MovingThing.DOWN);
 				}
 				// otherwise, loop over all Aliens and move them right
 				else for (Alien alien : aliens.get(row)) alien.move(MovingThing.RIGHT);
@@ -149,7 +147,7 @@ public class AlienHorde {
 	public int removeDeadOnes(ArrayList<Ammo> shots) {
 		// initialize return variable
 		int removed = 0;
-		
+		//System.out.println(iter++);
 		// loop over all rows of the matrix
 		for (int row = aliens.size() - 1; row >= 0; --row) {
 			// loop over all Aliens in this row
@@ -158,10 +156,17 @@ public class AlienHorde {
 				for (int shot = shots.size() - 1; shot >= 0; --shot)
 					// if this Alien has collided with this Ammo
 					if (aliens.get(row).get(alien).checkCollision(shots.get(shot))) {
-						// remove the Alien and the shot, incrementing the removed-count
-						aliens.get(row).remove(alien);
+						// it loses a life
+						aliens.get(row).get(alien).loseLife();
+						// if that kills it
+						if (aliens.get(row).get(alien).isDead()) {
+							// remove the Alien, incrementing the removed-count
+							aliens.get(row).addAll(alien, aliens.get(row).remove(alien).explode());
+							++removed;
+						}
+						
+						// remove the shot
 						shots.remove(shot);
-						++removed;
 						// no more shots need to be checked for this Alien
 						break;
 					}
@@ -173,7 +178,7 @@ public class AlienHorde {
 				movingLeft.remove(row);
 			}
 		}
-
+		//System.out.println(shots);
 		return removed;
 	}
 

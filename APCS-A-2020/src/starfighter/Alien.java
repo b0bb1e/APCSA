@@ -6,6 +6,7 @@ package starfighter;
 
 // for loading images
 import java.net.URL;
+import java.util.ArrayList;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.imageio.ImageIO;
@@ -19,6 +20,7 @@ public class Alien extends MovingThing {
 	 * the Alien's graphics image
 	 */
 	private Image image;
+	private int lives;
 
 	/**
 	 * Uses default values for size and initial position and speed
@@ -85,6 +87,7 @@ public class Alien extends MovingThing {
 			// if that didn't work, complain
 			throw new RuntimeException("Couldn't load the alien image");
 		}
+		lives = 1;
 	}
 
 	public void move(char direction) {
@@ -116,4 +119,32 @@ public class Alien extends MovingThing {
 		// if none of that, return true
 		return true;
 	}
+	
+	/**
+	 * Speed up by 1
+	 */
+	public void speedUp() {setSpeed(getSpeed() + 1);}
+	
+	/**
+	 * Set initial lives for subclasses
+	 * @param lives the number of lives this Alien should have
+	 */
+	protected void setLives(int lives) {this.lives = lives;}
+	
+	/**
+	 * Have the Alien lose a life
+	 */
+	public void loseLife() {--lives;}
+	
+	/**
+	 * Check if the Alien has run out of lives
+	 * @return if the Alien's life-count is 0
+	 */
+	public boolean isDead() {return lives == 0;}
+	
+	/**
+	 * Explode into no Aliens after death by default
+	 * @return
+	 */
+	public ArrayList<Alien> explode() {return new ArrayList<Alien>(0);}
 }
