@@ -64,14 +64,14 @@ public final class LevelCenter {
 	}
 	
 	/**
-	 * Load Level data from levels.dat
-	 * @return the completed array of Levels
+	 * Load ExampleLevel data from examples.dat
+	 * @return the completed array of ExampleLevels
 	 */
 	private static ExampleLevel[] readExamples() {
-		// point a Scanner at levels.dat
+		// point a Scanner at examples.dat
 		try (Scanner reader = new Scanner(
 				new File("src/blocks/gameData/examples.dat"))) {
-			// initialize Levels array to proper size
+			// initialize ExampleLevels array to proper size
 			ExampleLevel[] examples = new ExampleLevel[reader.nextInt()];
 			// loop over all Levels to load
 			for (int example = 0; example < examples.length; ++example) {
@@ -95,7 +95,7 @@ public final class LevelCenter {
 				byte[] moves = new byte[reader.nextInt()];
 				for (int move = 0; move < moves.length; ++move) 
 					moves[move] = Grid.stringToDir(reader.next());
-				// add new Level to levels array
+				// add new Example Level to levels array
 				examples[example] = new ExampleLevel(types, blocks, player, moves);
 			}
 			
@@ -105,7 +105,7 @@ public final class LevelCenter {
 		catch (Exception e) {
 			// print it out
 			e.printStackTrace();
-			// Levels are needed, this is unrecoverable
+			// ExampleLevels are needed, this is unrecoverable
 			throw new RuntimeException("Unable to load examples");
 		}
 	}

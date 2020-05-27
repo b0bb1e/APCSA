@@ -263,8 +263,8 @@ public class BlocksInstructions extends JPanel implements Runnable, ActionListen
 				if (step == GAME_I.length - 1) displayMainScreen();
 				else {
 					// game must also move to next example game, and repaint
-					example = new ExampleGrid(LevelCenter.getExample(step));
-					text.setText(GAME_I[++step]);
+					example = new ExampleGrid(LevelCenter.getExample(++step));
+					text.setText(GAME_I[step]);
 				}
 				repaint();
 			}
@@ -284,10 +284,10 @@ public class BlocksInstructions extends JPanel implements Runnable, ActionListen
 			// this is on the outside to discourage complier optimization
 			// if the last move was long enough ago
 			if (System.nanoTime() - lastMove > MOVE_WAIT) {
-				// reset last move time
-				lastMove = System.nanoTime();
 				// if this is the game screen
 				if (screen == GAME) {
+					// reset last move time
+					lastMove = System.nanoTime();
 					// do next move and re-display
 					example.nextMove();
 					repaint();

@@ -46,13 +46,13 @@ public final class UserCenter {
 					// initialize array of level scores
 					int[] minLevelScores = new int[LevelCenter.numLevels];
 					// copy scores into the array
-					for (int i = 0; i < scores.size() && i < minLevelScores[i]; ++i) 
+					for (int i = 0; i < scores.size() && i < minLevelScores.length; ++i) 
 						minLevelScores[i] = scores.get(i);
 					
 					// if there is an overall score (all levels + 1)
 					if (scores.size() == LevelCenter.numLevels + 1) {
 						// read it
-						int minScore = scores.remove(scores.size() - 1);
+						int minScore = scores.get(scores.size() - 1);
 						// add a User with the read-in data
 						users.add(new User(name, minLevelScores, minScore));
 					}
@@ -61,6 +61,7 @@ public final class UserCenter {
 						// for each level without a score, set to NO_SCORE
 						for (int i = scores.size(); i < minLevelScores.length; ++i)
 							minLevelScores[i] = User.NO_SCORE;
+						
 						// add a User with the read-in data
 						users.add(new User(name, minLevelScores));
 					}
